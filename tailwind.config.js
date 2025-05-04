@@ -5,7 +5,8 @@ export default {
     extend: {
       screens:{
         'sz1240': {'min':'821px','max':'1239px'},
-        'sz820': {'min':'300px','max':'820px'}
+        'sz820': {'min':'300px','max':'820px'},
+        'sz640': {'max': '640px'}
       },
     },
   },

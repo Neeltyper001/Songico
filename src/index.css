@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .csz640{
+        @apply flex-col justify-evenly;
+    }
+
+    .csz640-input{
+        @apply w-3/4 my-4 text-center;
+    }
+}

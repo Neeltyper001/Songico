@@ -4,7 +4,7 @@ export default function Footer(){
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-screen-xl">
             <p className="text-center">
-              Copyright &copy; 2022. All rights reserved.
+              Copyright &copy; 2023. All rights reserved.
             </p>
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function SongSection(props){
     }        
     return(        
 <div>
-    <div className="flex justify-center items-center px-4 py-6">
+    <div className="flex justify-center items-center px-4 py-6 sz640:csz640">
     <label  className="block text-xl font-medium  text-gray-700">
     Artist Name
   </label>
@@ -24,7 +24,7 @@ export default function SongSection(props){
     type="text"  
     ref = {artistName}  
     placeholder="Your fav artist"
-    className="mx-4 w-1/4 rounded-md px-2 py-2 border-gray-200 shadow-lg sm:text-sm"
+    className="mx-4 w-1/4 rounded-md px-2 py-2 border-gray-200 shadow-lg sm:text-sm sz640:csz640-input" 
   />
   <button
   className="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
