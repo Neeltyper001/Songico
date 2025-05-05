@@ -1,13 +1,15 @@
 import Header from './Components/Header'
 import MainSection from './Components/MainSection'
 import Footer from './Components/Footer'
+import AppRoute from './routes/Approute'
 
 function App() {  
   return (
     <>
-      <Header />
+    <AppRoute />
+      {/* <Header />
       <MainSection />
-      <Footer/>
+      <Footer /> */}
     </>
   )
 }
