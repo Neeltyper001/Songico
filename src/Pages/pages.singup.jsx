@@ -11,9 +11,9 @@ const Signup = () => {
       const navigate = useNavigate()
   return (
     <Container sx={{}}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Box sx={{position: 'relative', display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <Typography variant='h4' sx={{position:"absolute", top: 25, left: 20, color: '#3751FE' , fontSize: "34px", fontWeight: "bold", zIndex: 4}}>Sign Up</Typography>
             <Container sx={{position:"relative",height: '500px' , display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', paddingX: 2 , background: 'transparent'}}>                
-                    <Typography variant='h4' sx={{position:"absolute", top: 5, left: 20, color: '#3751FE' , fontSize: "34px", fontWeight: "bold"}}>Sign Up</Typography>
                     <Box component={'form'} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flexStart'}}>
                         <Box component={'img'} src="/assets/illustrations/signup.gif" sx={{display:{xs:"block",md: "none"}, height: "150px"}}/>  
                         <FormText setFormData={setFormData} variant={'standard'} label={'Email/Username'} helperText={''} value={''} adornmentIcon={<EmailIcon sx={{color: "blue", mr: 1, my: 0.5 }} />}/>
@@ -22,7 +22,7 @@ const Signup = () => {
                     <Box sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flexStart', width: '100%'}}>
                         <Button variant="contained" color="primary" sx={{width: '100%', height: '45px', marginTop: 2}} onClick={()=>{console.log(formData)}}>Sign Up</Button>
                         <GoogleButton buttonTypeText="Signup"/>
-                    <Typography sx={{ position:"absolute", bottom: 5, left: 20, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>Already have an account? <Button variant='text' onClick={()=>{navigate('/signin')}}>Sign in</Button></Typography>
+                    <Typography sx={{marginY: 2, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>Already have an account? <Button variant='text' sx={{textDecoration: 'underline'}} onClick={()=>{navigate('/signin')}}>Sign in</Button></Typography>
                     </Box>                
                     </Box>
             </Container>
