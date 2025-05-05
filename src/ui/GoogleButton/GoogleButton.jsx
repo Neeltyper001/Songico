@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-const GoogleButton = () => {
+const GoogleButton = ({buttonTypeText}) => {
   return (
     <button className="gsi-material-button">
       <div className="gsi-material-button-state"></div>
@@ -33,9 +33,9 @@ const GoogleButton = () => {
           </svg>
         </div>
         <span className="gsi-material-button-contents">
-          Sign up with Google
+          {buttonTypeText === "Signin" ? "Sign in with Google" : "Sign up with Google"}
         </span>
-        <span style={{display: "none"}}>Sign up with Google</span>
+        <span style={{display: "none"}}>{buttonTypeText === "Signin" ? "Sign in with Google" : "Sign up with Google"}</span>
       </div>
     </button>
   );

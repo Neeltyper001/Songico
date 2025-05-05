@@ -4,9 +4,11 @@ import FormText from '../ui/FormText'
 import FormPassword from '../ui/FormPassword'
 import EmailIcon from '@mui/icons-material/Email';
 import GoogleButton from '../ui/GoogleButton/GoogleButton';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-    const [formData, setFormData] = React.useState({})
+    const [formData, setFormData] = React.useState({});
+      const navigate = useNavigate()
   return (
     <Container sx={{}}>
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -17,15 +19,17 @@ const Signup = () => {
                         <FormText setFormData={setFormData} variant={'standard'} label={'Email/Username'} helperText={''} value={''} adornmentIcon={<EmailIcon sx={{color: "blue", mr: 1, my: 0.5 }} />}/>
                         <FormPassword setFormData={setFormData} variant={'standard'} label={'Password'} helperText={''} value={''} />
                         <FormPassword setFormData={setFormData} variant={'standard'} label={'Confirm password'} helperText={''} value={''} />
-                    </Box>
-                    <Container sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingX: 2}}>
+                    <Box sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flexStart', width: '100%'}}>
                         <Button variant="contained" color="primary" sx={{width: '100%', height: '45px', marginTop: 2}} onClick={()=>{console.log(formData)}}>Sign Up</Button>
-                        <GoogleButton />
-                    </Container>                
+                        <GoogleButton buttonTypeText="Signup"/>
+                    <Typography sx={{ position:"absolute", bottom: 5, left: 20, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>Already have an account? <Button variant='text' onClick={()=>{navigate('/signin')}}>Sign in</Button></Typography>
+                    </Box>                
+                    </Box>
             </Container>
             <Container sx={{display: {xs:"none",md: "block"}}}>
                 <Box component={'img'} src="/assets/illustrations/signup.gif"/>                                     
             </Container>
+            {/* already have an account */}
         </Box>
     </Container>
   )

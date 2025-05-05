@@ -24,7 +24,7 @@ const FormPassword = ({variant,label, helperText, value,setFormData}) => {
     }
 
   return (
-<FormControl sx={{ m: 1,  }} 
+<FormControl 
             variant={variant}>
           <InputLabel htmlFor="standard-adornment-password">{label}</InputLabel>
           <Input
