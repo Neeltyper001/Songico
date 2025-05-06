@@ -3,8 +3,8 @@ import React from 'react'
 import { camelCaseFormat } from '../utils/camelCase'
 import EmailIcon from '@mui/icons-material/Email';
 
-const FormText = ({variant,label, helperText, value, adornmentIcon,setFormData}) => {
-    const [text, setText] = React.useState(value)   
+const FormEmail = ({variant,label,  value, setFormData}) => {
+    const [email, setText] = React.useState(value)   
     const [error, setError] = React.useState({status: false, message: ""})
 
     const changeValue = (event) => {
@@ -13,13 +13,25 @@ const FormText = ({variant,label, helperText, value, adornmentIcon,setFormData})
     }
 
     const handleBlur = ()=>{
-      if(!text.trim()){
+      if(!email.trim()){
          setError(prev=> ( {...prev, status: true, message: "This field is required"}))
       }
 
       else{
-        setError(prev => ({...prev, status: false, message: ""}))
+        if(!error.status)
+            setError(prev => ({...prev, status: false, message: ""}))
       }
+    }
+
+    const handleEmailValidation = (e)=>{        
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const isValid = regex.test(e.target.value);
+        
+        if (isValid) {
+          setError(prev => ({...prev, status: false , message: ""}))
+        } else {
+            setError(prev => ({...prev, status: true , message: "Invalid email"}))
+        }
     }
 
   return (
@@ -28,8 +40,8 @@ const FormText = ({variant,label, helperText, value, adornmentIcon,setFormData})
         variant={variant}
         label={label}
         helperText={error.status ? error.message : "" }
-        value={text}
-        onChange={changeValue}
+        value={email}
+        onChange={(e)=>{changeValue(e);handleEmailValidation(e);}}
         onBlur={handleBlur}
         required={true}
         slotProps={
@@ -45,4 +57,4 @@ const FormText = ({variant,label, helperText, value, adornmentIcon,setFormData})
 }
 
 
-export default FormText
+export default FormEmail
