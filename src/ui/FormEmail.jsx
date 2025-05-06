@@ -1,9 +1,9 @@
-import { Box, InputAdornment, inputAdornmentClasses, TextField } from '@mui/material'
+import {TextField } from '@mui/material'
 import React from 'react'
 import { camelCaseFormat } from '../utils/camelCase'
 import EmailIcon from '@mui/icons-material/Email';
 
-const FormEmail = ({variant,label,  value, setFormData}) => {
+const FormEmail = ({variant,label,  value, setFormData , setFormError}) => {
     const [email, setText] = React.useState(value)   
     const [error, setError] = React.useState({status: false, message: ""})
 
@@ -15,11 +15,14 @@ const FormEmail = ({variant,label,  value, setFormData}) => {
     const handleBlur = ()=>{
       if(!email.trim()){
          setError(prev=> ( {...prev, status: true, message: "This field is required"}))
+         setFormError(true)
       }
 
       else{
-        if(!error.status)
+        if(!error.status){
             setError(prev => ({...prev, status: false, message: ""}))
+            setFormError(false)
+        }
       }
     }
 
@@ -28,9 +31,11 @@ const FormEmail = ({variant,label,  value, setFormData}) => {
         const isValid = regex.test(e.target.value);
         
         if (isValid) {
-          setError(prev => ({...prev, status: false , message: ""}))
+            setError(prev => ({...prev, status: false , message: ""}))
+            setFormError(false)   
         } else {
             setError(prev => ({...prev, status: true , message: "Invalid email"}))
+            setFormError(true)
         }
     }
 

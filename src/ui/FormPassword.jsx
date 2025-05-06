@@ -4,7 +4,7 @@ import { FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLa
 import React from 'react'
 import { camelCaseFormat } from '../utils/camelCase';
 
-const FormPassword = ({variant,label, value,setFormData}) => {
+const FormPassword = ({variant,label, value,setFormData,setFormError}) => {
     const [password, setPassword] = React.useState(value)
     const [showPassword, setShowPassword] = React.useState(false);
     const [error, setError] = React.useState({status: false, message: ""})
@@ -12,11 +12,13 @@ const FormPassword = ({variant,label, value,setFormData}) => {
     
         const handleBlur = ()=>{
           if(!password.trim()){
-             setError(prev=> ( {...prev, status: true, message: "This field is required"}))
+             setError(prev=> ( {...prev, status: true, message: "This field is required"}));
+             setFormError(true)
           }
     
           else{
             setError(prev => ({...prev, status: false, message: ""}))
+            setFormError(false)
           }
         }
     const handleClickShowPassword = () => setShowPassword((show) => !show);
