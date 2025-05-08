@@ -17,8 +17,10 @@ const FormPassword = ({variant,label, value,setFormData,setFormError}) => {
           }
     
           else{
-            setError(prev => ({...prev, status: false, message: ""}))
-            setFormError(false)
+            if(!error.status){
+              setError(prev => ({...prev, status: false, message: ""}))
+              setFormError(false)
+            }
           }
         }
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -35,6 +37,19 @@ const FormPassword = ({variant,label, value,setFormData,setFormError}) => {
         setPassword(event.target.value)
         setFormData(prev=>({...prev, [camelCaseFormat(label)]: event.target.value}))
     }
+
+    const handlePasswordValidation = (e)=>{        
+      const regex = /^[a-zA-Z0-9]{8,265}$/;
+      const isValid = regex.test(e.target.value);
+      
+      if (isValid) {
+          setError(prev => ({...prev, status: false , message: ""}))
+          setFormError(false)   
+      } else {
+          setError(prev => ({...prev, status: true , message: "Password must be between 8 and 265 characters long, and should not be one of the commonly used password"}))
+          setFormError(true)
+      }
+  }
 
   return (
     <FormControl 
@@ -61,7 +76,7 @@ const FormPassword = ({variant,label, value,setFormData,setFormError}) => {
               </InputAdornment>
             }
              value={password}
-             onChange={handleChangePassword}
+             onChange={(e)=>{handleChangePassword(e);handlePasswordValidation(e)}}
              onBlur={handleBlur}                      
           />
           <FormHelperText id="standard-weight-helper-text">{error.status ? error.message: ""}</FormHelperText>

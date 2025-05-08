@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 const GoogleButton = ({buttonTypeText}) => {
   return (
-    <button className="gsi-material-button">
+    <button type="button" className="gsi-material-button">
       <div className="gsi-material-button-state"></div>
       <div className="gsi-material-button-content-wrapper">
         <div className="gsi-material-button-icon">

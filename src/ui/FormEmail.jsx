@@ -41,6 +41,7 @@ const FormEmail = ({variant,label,  value, setFormData , setFormError}) => {
 
   return (
     <TextField
+        type="email"
         error={error.status}
         variant={variant}
         label={label}

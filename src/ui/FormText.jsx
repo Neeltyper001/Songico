@@ -1,9 +1,9 @@
-import { Box, InputAdornment, inputAdornmentClasses, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import React from 'react'
 import { camelCaseFormat } from '../utils/camelCase'
 import EmailIcon from '@mui/icons-material/Email';
 
-const FormText = ({variant,label, helperText, value, adornmentIcon,setFormData}) => {
+const FormText = ({variant,label,value,setFormData}) => {
     const [text, setText] = React.useState(value)   
     const [error, setError] = React.useState({status: false, message: ""})
 

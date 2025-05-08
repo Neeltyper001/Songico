@@ -1,30 +1,51 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Alert, Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
 import FormPassword from '../ui/FormPassword'
 import GoogleButton from '../ui/GoogleButton/GoogleButton';
 import FormEmail from '../ui/FormEmail';
 import { useNavigate } from 'react-router-dom';
+import { signup } from '../lib/appwrite.signup.js';
+import UseApiStatus from '../hooks/useApiStatus';
+import LoadingUi from '../ui/LoadingUi.jsx';
 
 const Signup = () => {
     const [formData, setFormData] = React.useState({});
     const [formError, setFormError] = React.useState(false)
-      const navigate = useNavigate()
-      console.log(formError)
+    const {apiStatus , setApiStatus} = UseApiStatus();
+    const [alert, setAlert] = React.useState({status: false , severity: "", message: ""})
+
+      const navigate = useNavigate()      
 
       // handleFormSubmit
-      const handleSubmit = (e)=>{
-        e.preventDefault()    
-        console.log(formData)    
-        
+      const handleSubmit = async (e)=>{  
+      try {
+            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))
+            // console.log(apiStatus)
+            e.preventDefault()    
+            // console.log(formData)            
+            const {email , password, confirmPassword} = formData
+
+            if(password !== confirmPassword){
+              throw new Error("Password and Confirm Password doesn't match")
+            }
+            const response =  await signup(email , password) 
+            setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
+            setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully created an account"}))
+        } catch (error) {
+            setApiStatus(prev=> ({...prev, isLoading: false, isError: true , isSuccess: false}))
+            setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))
+          }       
       }
 
   return (
-    <Container sx={{}}>
+    <Container >      
+      {apiStatus.isLoading && <LoadingUi />}
+      { alert.status  && <Alert onClose={()=>{setAlert(prev => ({...prev, status: false, severity: "", message: ""}))}} severity={alert.severity}>{alert.message}</Alert>}
         <Box sx={{position: 'relative', display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center', alignItems: 'center', height: '100vh' }}>                    
                     <Typography variant='h4' sx={{position:"absolute", top: 25, left: 20, color: '#3751FE' , fontSize: "34px", fontWeight: "bold", zIndex: 4}}>Sign Up</Typography>
             <Container sx={{position:"relative",height: '500px' , display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', paddingX: 2 , background: 'transparent'}}>                
                     <Box component={'form'} onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flexStart'}}>
-                        <Box component={'img'} src="/assets/illustrations/signup.gif" sx={{display:{xs:"block",md: "none"}, height: "150px"}}/>  
+                        <Box component={'img'} src="/assets/illustrations/signup.gif" sx={{display:{xs:"block",md: "none"}, height: "150px" , width: "200px" , alignSelf: "center"}}/>  
                         <FormEmail setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Email'}  value={''} />
                         <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Password'} value={''} />
                         <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Confirm password'} value={''} />
