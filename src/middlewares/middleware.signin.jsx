@@ -1,8 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import UseApiStatus from '../hooks/useApiStatus';
 import { Container, Typography } from '@mui/material';
-import {account} from '../lib/appwrite.js'
 import { getSession } from '../lib/appwrite.session.js';
 
 const SignInRedirectionPage = () => {

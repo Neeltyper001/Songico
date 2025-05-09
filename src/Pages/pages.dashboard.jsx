@@ -1,5 +1,4 @@
 import { Button } from '@mui/material'
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import UseApiStatus from '../hooks/useApiStatus'
 import { deleteSession } from '../lib/appwrite.session'
