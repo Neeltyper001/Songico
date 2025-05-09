@@ -1,20 +1,40 @@
 import React from 'react'
-import { Box, Button, Container,  Typography } from '@mui/material'
+import { Alert, Box, Button, Container,  Typography } from '@mui/material'
 import FormPassword from '../ui/FormPassword'
 import GoogleButton from '../ui/GoogleButton/GoogleButton';
 import { useNavigate } from 'react-router-dom';
 import FormEmail from '../ui/FormEmail'
+import UseApiStatus from '../hooks/useApiStatus';
+import LoadingUi from '../ui/LoadingUi';
+import { signin } from '../lib/appwrite.signin';
 const Signin = () => {
   const [formData, setFormData] = React.useState({})
   const [formError, setFormError] = React.useState(false)
+      const {apiStatus , setApiStatus} = UseApiStatus();
+      const [alert, setAlert] = React.useState({status: false , severity: "", message: ""})
     const navigate = useNavigate()
 
-    const handleSubmit = (e)=>{
-      e.preventDefault()
-      console.log(formData)
+    const handleSubmit = async (e)=>{
+      try {
+            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))
+            // console.log(apiStatus)
+            e.preventDefault()    
+            // console.log(formData)            
+            const {email , password} = formData
+
+            const response =  await signin(email , password) 
+            console.log(response)
+            setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
+            setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully Logged In account"}))
+        } catch (error) {
+            setApiStatus(prev=> ({...prev, isLoading: false, isError: true , isSuccess: false}))
+            setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))
+          }   
     }
   return (
     <Container >
+        {apiStatus.isLoading && <LoadingUi />}
+        { alert.status  && <Alert onClose={()=>{setAlert(prev => ({...prev, status: false, severity: "", message: ""}))}} severity={alert.severity}>{alert.message}</Alert>}
         <Box sx={{position: 'relative', display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                     <Typography variant='h4' sx={{position:"absolute", top: 25, left: 20, color: '#3751FE' , fontSize: "34px", fontWeight: "bold" ,zIndex: 2}}>Sign In</Typography>
             <Container sx={{position:"relative",height: '500px' , display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: 'center', paddingX: 2 , background: 'transparent'}}>                
