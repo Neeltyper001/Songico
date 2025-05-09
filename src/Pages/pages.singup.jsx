@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { signup } from '../lib/appwrite.signup.js';
 import UseApiStatus from '../hooks/useApiStatus';
 import LoadingUi from '../ui/LoadingUi.jsx';
+import { oAuthSignin } from '../lib/appwrite.OAuth.js';
 
 const Signup = () => {
     const [formData, setFormData] = React.useState({});
@@ -37,6 +38,15 @@ const Signup = () => {
           }       
       }
 
+          const handleGoogleButton = ()=>{
+             try {
+               const response = oAuthSignin();
+               console.log(response)
+             } catch (error) {
+               console.log(error.message)
+             }
+          }
+
   return (
     <Container >      
       {apiStatus.isLoading && <LoadingUi />}
@@ -51,7 +61,7 @@ const Signup = () => {
                         <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Confirm password'} value={''} />
                     <Box sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flexStart', width: '100%'}}>
                         <Button type='submit' variant="contained" color="primary" sx={{width: '100%', height: '45px', marginTop: 2}} disabled={formError ? true : false}>Sign Up</Button>
-                        <GoogleButton buttonTypeText="Signup"/>
+                        <GoogleButton handleGoogleButton={handleGoogleButton} buttonTypeText="Signup"/>
                         <Typography sx={{marginY: 2, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>Already have an account? <Button variant='text' sx={{textDecoration: 'underline'}} onClick={()=>{navigate('/signin')}}>Sign in</Button></Typography>
                     </Box>                
                     </Box>

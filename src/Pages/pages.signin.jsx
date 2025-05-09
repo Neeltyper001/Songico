@@ -7,6 +7,7 @@ import FormEmail from '../ui/FormEmail'
 import UseApiStatus from '../hooks/useApiStatus';
 import LoadingUi from '../ui/LoadingUi';
 import { signin } from '../lib/appwrite.signin';
+import { oAuthSignin } from '../lib/appwrite.OAuth';
 const Signin = () => {
   const [formData, setFormData] = React.useState({})
   const [formError, setFormError] = React.useState(false)
@@ -32,6 +33,15 @@ const Signin = () => {
             setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))
           }   
     }
+
+    const handleGoogleButton = ()=>{
+       try {
+         const response = oAuthSignin();
+         console.log(response)
+       } catch (error) {
+         console.log(error.message)
+       }
+    }
   return (
     <Container >
         {apiStatus.isLoading && <LoadingUi />}
@@ -45,7 +55,7 @@ const Signin = () => {
                         <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Password'} value={''} />                        
                     <Box sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
                         <Button type="submit" variant="contained" color="primary" sx={{width: '100%', height: '45px', marginTop: 2}} disabled={formError ? true : false}>Sign In</Button>
-                        <GoogleButton buttonTypeText={"Signin"}/>
+                        <GoogleButton handleGoogleButton={handleGoogleButton} buttonTypeText={"Signin"}/>
                     </Box>                
                     </Box>
                     <Typography sx={{marginY: 2, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>{`Don't have an account? `}<Button variant='text' sx={{textDecoration: 'underline'}} onClick={()=>{navigate('/signup')}}>Sign up</Button></Typography>

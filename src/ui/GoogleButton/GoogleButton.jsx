@@ -1,8 +1,7 @@
-import React from "react";
 import "./index.css";
-const GoogleButton = ({buttonTypeText}) => {
+const GoogleButton = ({buttonTypeText, handleGoogleButton}) => {
   return (
-    <button type="button" className="gsi-material-button">
+    <button onClick={handleGoogleButton} type="button" className="gsi-material-button">
       <div className="gsi-material-button-state"></div>
       <div className="gsi-material-button-content-wrapper">
         <div className="gsi-material-button-icon">
@@ -35,7 +34,7 @@ const GoogleButton = ({buttonTypeText}) => {
         <span className="gsi-material-button-contents">
           {buttonTypeText === "Signin" ? "Sign in with Google" : "Sign up with Google"}
         </span>
-        <span style={{display: "none"}}>{buttonTypeText === "Signin" ? "Sign in with Google" : "Sign up with Google"}</span>
+        <span style={{display: "none"}}>{buttonTypeText === "Signin" ? "Sign in with Google" : "Continue with Google"}</span>
       </div>
     </button>
   );
