@@ -23,9 +23,10 @@ const Signin = () => {
             const {email , password} = formData
 
             const response =  await signin(email , password) 
-            console.log(response)
+            console.log(response)            
             setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
             setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully Logged In account"}))
+            navigate('/dashboard' , {replace: true})
         } catch (error) {
             setApiStatus(prev=> ({...prev, isLoading: false, isError: true , isSuccess: false}))
             setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))

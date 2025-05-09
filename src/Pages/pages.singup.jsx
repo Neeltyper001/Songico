@@ -28,7 +28,7 @@ const Signup = () => {
             if(password !== confirmPassword){
               throw new Error("Password and Confirm Password doesn't match")
             }
-            const response =  await signup(email , password) 
+             await signup(email , password) 
             setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
             setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully created an account"}))
         } catch (error) {

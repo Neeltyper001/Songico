@@ -4,13 +4,23 @@ import { createRoutesFromElements } from "react-router-dom";
 import Signup from "../Pages/pages.singup";
 import Landing from "../Pages/pages.landing";
 import Signin from "../Pages/pages.signin";
+import SignInRedirectionPage from "../middlewares/middleware.signin";
+import DashboardLayout from "../Layouts/layouts.dashboardlayout";
+import Dashboard from "../Pages/pages.dashboard";
+
 
 const AppRoute = () => {
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Landing />} />  
-      <Route  path="/signup" element={<Signup />} /> 
-      <Route  path="/signin" element={<Signin />} /> 
+      <Route  path="signup" element={<Signup />} /> 
+      <Route  path="signin" element={<Signin />} />     
+      <Route path="redirect" >
+        <Route index element={<SignInRedirectionPage />} />
+      </Route>
+      <Route path="dashboard" element={<DashboardLayout />}>
+         <Route index element={<Dashboard />} />
+      </Route>
     </Route>
   ))
   return (
