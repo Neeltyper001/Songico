@@ -42,6 +42,8 @@ const Signin = () => {
          console.log(error.message)
        }
     }
+
+
   return (
     <Container >
         {apiStatus.isLoading && <LoadingUi />}
@@ -52,11 +54,13 @@ const Signin = () => {
                     <Box component={'form'} onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flexStart'}}>
                         <Box component={'img'} src="/assets/illustrations/signup.gif" sx={{display:{xs:"block",md: "none"}, height: "150px"}}/>  
                         <FormEmail setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Email'}  value={''} />
-                        <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Password'} value={''} />                        
+                        <FormPassword setFormData={setFormData} setFormError={setFormError} variant={'standard'} label={'Password'} value={''} />
+                        <Button variant='text' type='button' onClick={()=>{navigate('/recovery')}}  sx={{color: '#3751FE', marginTop: 2 , fontSize: "14px", fontWeight: "bold"}}>Forgot password ?</Button>
                     <Box sx={{display: 'flex', gap:2, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
                         <Button type="submit" variant="contained" color="primary" sx={{width: '100%', height: '45px', marginTop: 2}} disabled={formError ? true : false}>Sign In</Button>
                         <GoogleButton handleGoogleButton={handleGoogleButton} buttonTypeText={"Signin"}/>
                     </Box>                
+                    
                     </Box>
                     <Typography sx={{marginY: 2, color: '#3751FE' , fontSize: "14px", fontWeight: "bold"}}>{`Don't have an account? `}<Button variant='text' sx={{textDecoration: 'underline'}} onClick={()=>{navigate('/signup')}}>Sign up</Button></Typography>
             </Container>
