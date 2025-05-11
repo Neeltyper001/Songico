@@ -1,7 +1,6 @@
 import React from 'react'
-import {Container, Box, Button, Paper, Alert, Typography } from '@mui/material'
-import FormEmail from '../ui/FormEmail'
-import { newPassword, passwordRecovery } from '../lib/appwrite.password-recovery'
+import { Box, Button, Paper, Alert, Typography } from '@mui/material'
+import { newPassword } from '../lib/appwrite.password-recovery'
 import FormPassword from '../ui/FormPassword'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import UseApiStatus from '../hooks/useApiStatus'
@@ -20,12 +19,14 @@ const NewPassword = () => {
             setApiStatus(prev => ({...prev, isSuccess: false , isError: false , isLoading: true}))
             e.preventDefault()
             const response = await newPassword(params.get("userId"),params.get("secret"),formData.newPassword)    
-            setApiStatus(prev => ({...prev , isLoading: false , isError: false , isSuccess: true}))
-            navigate('/signin' , {replace: true})           
+            setApiStatus(prev => ({...prev , isLoading: false , isError: false , isSuccess: true}))                    
         } catch (error) {            
             setApiStatus(prev => ({...prev, isLoading: false , isError: true , isSuccess: false}))
+            navigate('/error')
         }
       }
+    
+      
   return (
     <>
         {apiStatus.isLoading && <LoadingUi />}
@@ -43,19 +44,10 @@ const NewPassword = () => {
                 }
                 { apiStatus.isSuccess && 
                     <>
-                        <Box component="img" src="/assets/illustrations/success.png" sx={{ boxSizing: "border-box",  height: {xs: "300px" , md: "auto"}, width:{xs: "300px", md: "auto"}}}/>
-                        <Box sx={{paddingY: 4,display: 'flex', flexDirection: "column", justifyContent: "center", gap: 3 , alignItems: "flex-start"}}>
-                            <Typography sx={{fontSize: "36px" , color: "##3751FE"}}>Yay! created new password</Typography>
+                        <Box component="img" src="/assets/illustrations/success.png" sx={{ boxSizing: "border-box",  height: {xs: "200px", md: "400px"}, width:{xs: "200px", md: "auto"}}}/>
+                        <Box sx={{paddingY: 4,display: 'flex', flexDirection: "column", justifyContent: "center", gap: 3 , alignItems: "center"}}>
+                            <Typography sx={{fontSize: "36px" , color: "##3751FE" , textAlign: "center"}}>Yay! created new password</Typography>
                             <Button type="button" onClick={()=>{navigate('/signin')}} variant="contained">Back to signin</Button>
-                        </Box>                    
-                    </>
-                }
-                { apiStatus.isError  &&
-                    <>
-                        <Box component="img" src="/assets/illustrations/error.png" sx={{ boxSizing: "border-box",  height: {xs: "300px" , md: "auto"}, width:{xs: "300px", md: "auto"}}}/>
-                        <Box  sx={{paddingY: 4,display: 'flex', flexDirection: "column", justifyContent: "center", gap: 3 , alignItems: "flex-start"}}>
-                            <Typography sx={{fontSize: "36px", color: "#3751FE"}}>Oops Something went wrong !</Typography>
-                            <Button type="button" onClick={()=>{navigate('/')}} variant="contained">Back to Home Page</Button>
                         </Box>                    
                     </>
                 }

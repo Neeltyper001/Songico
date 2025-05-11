@@ -9,6 +9,7 @@ import DashboardLayout from "../Layouts/layouts.dashboardlayout";
 import Dashboard from "../Pages/pages.dashboard";
 import RecoveryPassword from "../Pages/page.recovery-password";
 import NewPassword from "../Pages/page.new-password";
+import SomethingWentWrong from "../Pages/pages.something-went-wrong";
 
 
 const AppRoute = () => {
@@ -19,10 +20,12 @@ const AppRoute = () => {
       <Route  path="signin" element={<Signin />} />     
       <Route path="redirect" >
         <Route index element={<SignInRedirectionPage />} />
-        <Route path="recovery" element={<NewPassword />} />
+        <Route path="new-password" element={<NewPassword />} />
       </Route>
       <Route path="recovery" element={<RecoveryPassword />} />
-              
+      <Route path="error">
+         <Route index element={<SomethingWentWrong />} />
+      </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
          <Route index element={<Dashboard />} />
       </Route>
