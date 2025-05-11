@@ -17,14 +17,10 @@ const Signin = () => {
 
     const handleSubmit = async (e)=>{
       try {
-            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))
-            // console.log(apiStatus)
-            e.preventDefault()    
-            // console.log(formData)            
+            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))            
+            e.preventDefault()                            
             const {email , password} = formData
-
-            const response =  await signin(email , password) 
-            console.log(response)            
+            await signin(email , password)                  
             setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
             setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully Logged In account"}))
             navigate('/dashboard' , {replace: true})

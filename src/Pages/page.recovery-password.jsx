@@ -18,7 +18,6 @@ const RecoveryPassword = () => {
         try {
             setApiStatus(prev => ({...prev, isSuccess: false , isError: false , isLoading: true}))
             e.preventDefault()
-            console.log(formData.email)
             const response = await passwordRecovery(formData.email)
             setApiStatus(prev => ({...prev , isLoading: false , isError: false , isSuccess: true}))
             setAlert(prev => (prev, ({...prev, status:true , severity: "success", message: "A recovery link has been sent to the provided mail"})))      
