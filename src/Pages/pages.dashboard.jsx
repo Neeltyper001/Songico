@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import UseApiStatus from '../hooks/useApiStatus'
 import { deleteSession } from '../lib/appwrite.session'
 import LoadingUi from '../ui/LoadingUi'
+import Navbar from '../Components/Navbar'
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Dashboard = () => {
     }
   return (
     <>
-        
+        <Navbar />
         <Button onClick={handleLogout} variant="contained">LogOut</Button>   
         {apiStatus.isLoading && <LoadingUi />} 
     </>
