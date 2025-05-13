@@ -4,6 +4,7 @@ import UseApiStatus from '../hooks/useApiStatus'
 import { deleteSession } from '../lib/appwrite.session'
 import LoadingUi from '../ui/LoadingUi'
 import Navbar from '../Components/Navbar'
+import SongSection from '../Sections/SongSection-copy'
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Dashboard = () => {
   return (
     <>
         <Navbar />
+        <SongSection />
         <Button onClick={handleLogout} variant="contained">LogOut</Button>   
         {apiStatus.isLoading && <LoadingUi />} 
     </>
