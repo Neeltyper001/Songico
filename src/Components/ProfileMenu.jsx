@@ -1,6 +1,4 @@
 import { Menu, MenuItem } from '@mui/material'
-import React from 'react'
-
 
 const ProfileMenu = ({anchorEl , handleClose , open , handleLogout}) => {
 

@@ -5,10 +5,15 @@ import { deleteSession } from '../lib/appwrite.session'
 import LoadingUi from '../ui/LoadingUi'
 import Navbar from '../Components/Navbar'
 import SongSection from '../Sections/SongSection-copy'
+import PlayWidget from '../Components/PlayWidget'
+import { useState } from 'react'
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const {apiStatus , setApiStatus} = UseApiStatus();
+    const [currentTrack, setCurrentTrack] = useState(null)
+    const showTrackWidget = Boolean(currentTrack)
+    console.log(currentTrack)
 
     const handleLogout = async ()=>{
         try {
@@ -24,8 +29,8 @@ const Dashboard = () => {
   return (
     <>
         <Navbar />
-        <SongSection />
-        <Button onClick={handleLogout} variant="contained">LogOut</Button>   
+        <SongSection setCurrentTrack={setCurrentTrack}/>
+        {showTrackWidget && <PlayWidget currentTrack={currentTrack}/>}         
         {apiStatus.isLoading && <LoadingUi />} 
     </>
   )
