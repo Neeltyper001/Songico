@@ -1,37 +1,31 @@
-import { Button } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import UseApiStatus from '../hooks/useApiStatus'
-import { deleteSession } from '../lib/appwrite.session'
 import LoadingUi from '../ui/LoadingUi'
 import Navbar from '../Components/Navbar'
 import SongSection from '../Sections/SongSection-copy'
 import PlayWidget from '../Components/PlayWidget'
 import { useState } from 'react'
+import { TracksContext } from '../contexts/context.tracks'
+import Searchbar from '../Components/Searchbar'
+
 
 const Dashboard = () => {
-    const navigate = useNavigate();
+    const trackData = useLoaderData();
     const {apiStatus , setApiStatus} = UseApiStatus();
-    const [currentTrack, setCurrentTrack] = useState(null)
+    const [currentTrack, setCurrentTrack] = useState(null)    
+    // so that search term could be made all the data of tracks is available to parent which can be used by children
+    const [tracks , setTracks] = useState(trackData);
     const showTrackWidget = Boolean(currentTrack)
-    console.log(currentTrack)
 
-    const handleLogout = async ()=>{
-        try {
-             setApiStatus(prev => ({...prev, isLoading: true , isError: false , isSuccess: false }))
-             const response = await deleteSession();
-             setApiStatus(prev=>({...prev,isLoading: false , isError: false , isSuccess: true}))
-             console.log(response)
-             navigate('/' , {replace: true})
-        } catch (error) {
-             setApiStatus(prev => ({...prev, isLoading: false , isError: true , isSuccess: false}))
-        }
-    }
   return (
     <>
+      <TracksContext.Provider value={{tracks , setTracks , setCurrentTrack, setApiStatus}}>
         <Navbar />
-        <SongSection setCurrentTrack={setCurrentTrack}/>
+        <Searchbar />
+        <SongSection />
         {showTrackWidget && <PlayWidget currentTrack={currentTrack}/>}         
         {apiStatus.isLoading && <LoadingUi />} 
+      </TracksContext.Provider>
     </>
   )
 }

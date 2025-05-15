@@ -11,7 +11,7 @@ import RecoveryPassword from "../Pages/page.recovery-password";
 import NewPassword from "../Pages/page.new-password";
 import SomethingWentWrong from "../Pages/pages.something-went-wrong";
 import NotFound from "../Pages/pages.not-found";
-import { fetchTracks } from "../loaders/loaders.song-fetcher";
+import { fetchTracksLoader } from "../loaders/loaders.song-fetcher";
 
 
 
@@ -30,7 +30,7 @@ const AppRoute = () => {
          <Route index element={<SomethingWentWrong />} />
       </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
-         <Route index element={<Dashboard />} loader={fetchTracks}/>
+         <Route index element={<Dashboard />} loader={fetchTracksLoader}/>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

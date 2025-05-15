@@ -1,11 +1,8 @@
 import { Box, Container, Typography } from '@mui/material'
-import React from 'react'
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 const PlayWidget = ({currentTrack}) => {
-  console.log(currentTrack);
   return (
     <Box sx={{position: "sticky", bottom: 0}}>
       <Container sx={{ paddingY: 3,zIndex: 3, display: "flex" , justifyContent: "space-around", alignItems: "center",backgroundColor: "gray", height: "100px" ,borderRadius: "15px"}}>
