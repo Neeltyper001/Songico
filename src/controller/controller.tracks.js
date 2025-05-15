@@ -5,7 +5,6 @@ export const fetchTracksController = async(searchTerm)=>{
     try {
         const tracks = await apiCall(searchTerm);     
         const {resultCount , results} = tracks
-        console.log(results);
         const tracksData = results.map((track)=>{
             return (
                 new Track(track,resultCount)
