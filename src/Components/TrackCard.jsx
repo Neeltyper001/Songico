@@ -1,12 +1,12 @@
-import { Box, Card, CardContent, CardMedia, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
+export const TrackCard = ({coverImage,trackName,artistName,saveTrack}) => {
 
-export const TrackCard = ({coverImage,trackName,artistName}) => {
-      const theme = useTheme();
   return (
  <Card sx={{ display: 'flex' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
+        <CardContent sx={{ flex: '1 0 auto', position: "relative" }}>
           <Typography component="div" noWrap={true} variant='h5'  sx={{fontSize: "25px" , fontWeight: "bold" , width: "180px"}}>
             {trackName}
           </Typography>
@@ -18,6 +18,7 @@ export const TrackCard = ({coverImage,trackName,artistName}) => {
           >
             {artistName}
           </Typography>
+          <Button onClick={async ()=>{console.log("Click"); await saveTrack()}} sx={{position: "absolute", bottom: 0, left: 0}}><BookmarkIcon /></Button>
         </CardContent>
        
       </Box>

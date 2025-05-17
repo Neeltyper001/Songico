@@ -5,11 +5,11 @@ import { getSession } from '../lib/appwrite.session.js';
 
 const SignInRedirectionPage = () => {
     const navigate = useNavigate();    
-
     React.useEffect(()=>{
         const redirectToDashboard = async ()=>{
             try {
-                const response = await getSession();                
+                const response = await getSession();  
+                console.log(response)              
                 navigate('/dashboard' , { state: response, replace: true})
             } catch (error) {
                 console.log(error.message)

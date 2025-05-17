@@ -1,7 +1,8 @@
 import { Menu, MenuItem } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 
 const ProfileMenu = ({anchorEl , handleClose , open , handleLogout}) => {
-
+  const navigate = useNavigate();
   return (
     <Menu
         id="basic-menu"
@@ -13,7 +14,7 @@ const ProfileMenu = ({anchorEl , handleClose , open , handleLogout}) => {
         }}
     >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My Playlists</MenuItem>
+        <MenuItem onClick={()=>{handleClose(); navigate('/dashboard/playlists')}}>My Playlists</MenuItem>
         <MenuItem onClick={()=>{handleLogout();handleClose();}}>Logout</MenuItem>
     </Menu>
   )

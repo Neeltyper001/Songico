@@ -12,6 +12,7 @@ import NewPassword from "../Pages/page.new-password";
 import SomethingWentWrong from "../Pages/pages.something-went-wrong";
 import NotFound from "../Pages/pages.not-found";
 import { fetchTracksLoader } from "../loaders/loaders.song-fetcher";
+import Playlists from "../Pages/pages.playlists";
 
 
 
@@ -31,6 +32,7 @@ const AppRoute = () => {
       </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
          <Route index element={<Dashboard />} loader={fetchTracksLoader}/>
+         <Route path="playlists" element={<Playlists />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>
