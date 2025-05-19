@@ -1,5 +1,5 @@
 import MainLayout from "../Layouts/layouts.main";
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, Route, RouterProvider } from "react-router-dom";
 import { createRoutesFromElements } from "react-router-dom";
 import Signup from "../Pages/pages.singup";
 import Landing from "../Pages/pages.landing";
@@ -13,6 +13,9 @@ import SomethingWentWrong from "../Pages/pages.something-went-wrong";
 import NotFound from "../Pages/pages.not-found";
 import { fetchTracksLoader } from "../loaders/loaders.song-fetcher";
 import Playlists from "../Pages/pages.playlists";
+import { fetchPlayListTracks } from "../loaders/loader.playlist-track-fetcher";
+import { fetchUserProfileData } from "../loaders/loaders.fetchUserProfileData";
+import FallbackLoadingUi from "../Components/FallbackLoadingUi";
 
 
 
@@ -30,9 +33,9 @@ const AppRoute = () => {
       <Route path="error">
          <Route index element={<SomethingWentWrong />} />
       </Route>
-      <Route path="dashboard" element={<DashboardLayout />}>
+      <Route path="dashboard" element={<DashboardLayout />} loader={fetchUserProfileData} hydrateFallbackElement={<FallbackLoadingUi />} errorElement={<Navigate to="/error" />}>
          <Route index element={<Dashboard />} loader={fetchTracksLoader}/>
-         <Route path="playlists" element={<Playlists />} />
+         <Route path="playlists/:userId" element={<Playlists />} loader={fetchPlayListTracks}/>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

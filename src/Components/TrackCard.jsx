@@ -18,7 +18,7 @@ export const TrackCard = ({coverImage,trackName,artistName,saveTrack}) => {
           >
             {artistName}
           </Typography>
-          <Button onClick={async ()=>{console.log("Click"); await saveTrack()}} sx={{position: "absolute", bottom: 0, left: 0}}><BookmarkIcon /></Button>
+          <Button onClick={async ()=>{ await saveTrack()}} sx={{position: "absolute", bottom: 0, left: 0}}><BookmarkIcon /></Button>
         </CardContent>
        
       </Box>

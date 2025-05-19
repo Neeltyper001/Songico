@@ -1,4 +1,4 @@
-import { Client, Account, Databases , Permission , Role} from 'appwrite';
+import { Client, Account, Databases , Permission , Role , Query} from 'appwrite';
 
 export const client = new Client();
 
@@ -11,3 +11,4 @@ export const databases = new Databases(client);
 export { ID } from 'appwrite';
 export {Permission}
 export {Role}
+export {Query}

@@ -1,11 +1,16 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
+import { UserProfileDataContext } from '../contexts/context.userProfileData'
 
-const DashboardLayout = () => {
+const DashboardLayout = () => {  
+  const userProfileData = useLoaderData();
+  
   return (
     <>
-        <Navbar />
-        <Outlet />    
+        <UserProfileDataContext.Provider value={ userProfileData} >
+          <Navbar />
+          <Outlet />    
+        </UserProfileDataContext.Provider>
     </>
   )
 }

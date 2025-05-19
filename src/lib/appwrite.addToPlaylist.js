@@ -1,5 +1,5 @@
 import { COLLECTION_ID, DATABASE_ID } from "../constants/constants.database"
-import { databases, ID } from "./appwrite"
+import { databases, ID, Query } from "./appwrite"
 
 export const saveToPlaylist = async (data)=>{
     try {
@@ -29,4 +29,17 @@ export const removeFromPlaylist = async (documentId)=>{
     }
 }
 export const emptyPlaylist = async ()=>{}
-export const listAllPlaylist = async ()=>{}
+export const listAllPlaylist = async (userId)=>{
+        try {
+       const result = await databases.listDocuments(
+                DATABASE_ID, // databaseId
+                COLLECTION_ID, // collectionId       
+                [
+                    Query.equal('userId',[userId])
+                ]         
+        );
+        return result
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
