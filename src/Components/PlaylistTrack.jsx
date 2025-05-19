@@ -3,7 +3,7 @@ import { DEFAULT_COVER_IMAGE } from '../constants/constants.default'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { red } from '@mui/material/colors';
 import { removePlayListTrackController } from '../controller/controller.tracks';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserProfileDataContext } from '../contexts/context.userProfileData';
 
