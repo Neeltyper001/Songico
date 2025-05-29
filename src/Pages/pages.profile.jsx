@@ -12,20 +12,20 @@ const Profile = () => {
     const  [file , setFile] = React.useState(null);  
     const {apiStatus , setApiStatus} = UseApiStatus();
     const [alert, setAlert] = React.useState({status: false , severity: "", message: ""})
-    // const navigate = useNavigate()
-    const {profileImage,userId} = useContext(UserProfileDataContext)
+    const navigate = useNavigate()
+    const {profileImage,userId,profileImageId} = useContext(UserProfileDataContext)
     const [profileImageObj , setProfileImageObj] = React.useState({isChanged: false , profileImageToRender: profileImage})
 
-    const updateMyDetails = async(e)=>{
-        setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false , isError: false}))
-        e.preventDefault();
+    const updateMyDetails = async(e)=>{        
         try{
-        setApiStatus(prev => ({...prev , isLoading: false , isSuccess: true , isError: false}))
-         await profilePictureController(file,userId )
-         setAlert(prev => ({...prev, status: true , severity: "success" , message: "Succesfully updated profile"}))
+          e.preventDefault();
+          setApiStatus(prev => ({...prev , isLoading: true , isSuccess: false , isError: false}))
+          await profilePictureController(file,userId, profileImageId )
+          navigate(`/dashboard/profile/${userId}`)
+          setAlert(prev => ({...prev, status: true , severity: "success" , message: "Succesfully updated profile"}))
+          setApiStatus(prev => ({...prev, isLoading: false , isSuccess: true , isError: false}))
         }
-        catch(e){    
-            console.log(e.message)      
+        catch(e){          
             setApiStatus(prev => ({...prev , isLoading: false, isSuccess: false , isError: true}))
             setAlert(prev=>({...prev , status: true , severity: "error", message: "Couldn't update the profile"}))
         }

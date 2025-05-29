@@ -15,7 +15,8 @@ export const createUserIfNotExists = async (userId) =>{
                userId,
                {
                 userId,
-                profileImage: DEFAULT_SONG_ICON_IMAGE_URL
+                profileImage: DEFAULT_SONG_ICON_IMAGE_URL,
+                profileImageId: ""
                }
            )
            return new User(response)
