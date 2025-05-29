@@ -17,7 +17,7 @@ const ProfileMenu = ({anchorEl , handleClose , open , handleLogout}) => {
           'aria-labelledby': 'basic-button',
         }}
     >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={()=>{handleClose(); navigate(`/dashboard/profile/${userId}`)}}>Profile</MenuItem>
         <MenuItem onClick={()=>{handleClose(); navigate(`/dashboard/playlists/${userId}`)}}>My Playlists</MenuItem>
         <MenuItem onClick={()=>{handleLogout();handleClose();}}>Logout</MenuItem>
     </Menu>

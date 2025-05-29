@@ -16,6 +16,8 @@ import Playlists from "../Pages/pages.playlists";
 import { fetchPlayListTracks } from "../loaders/loader.playlist-track-fetcher";
 import { fetchUserProfileData } from "../loaders/loaders.fetchUserProfileData";
 import FallbackLoadingUi from "../Components/FallbackLoadingUi";
+import Profile from "../Pages/pages.profile";
+import Testing from "../Pages/pages.testing";
 
 
 
@@ -23,7 +25,7 @@ const AppRoute = () => {
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Landing />} />  
-      <Route  path="signup" element={<Signup />} /> 
+      <Route  path="signup" element={<Signup />} />
       <Route  path="signin" element={<Signin />} />     
       <Route path="redirect" >
         <Route index element={<SignInRedirectionPage />} />
@@ -33,9 +35,11 @@ const AppRoute = () => {
       <Route path="error">
          <Route index element={<SomethingWentWrong />} />
       </Route>
+      <Route path="test" element={<Testing />}/>
       <Route path="dashboard" element={<DashboardLayout />} loader={fetchUserProfileData} hydrateFallbackElement={<FallbackLoadingUi />} errorElement={<Navigate to="/error" />}>
          <Route index element={<Dashboard />} loader={fetchTracksLoader}/>
          <Route path="playlists/:userId" element={<Playlists />} loader={fetchPlayListTracks}/>
+         <Route path="profile/:userId" element={<Profile />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

@@ -4,7 +4,7 @@ import { UserProfileDataContext } from '../contexts/context.userProfileData'
 
 const DashboardLayout = () => {  
   const userProfileData = useLoaderData();
-  
+  console.log(userProfileData)
   return (
     <>
         <UserProfileDataContext.Provider value={ userProfileData} >

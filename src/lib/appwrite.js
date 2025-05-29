@@ -1,13 +1,14 @@
-import { Client, Account, Databases , Permission , Role , Query} from 'appwrite';
+import { Client, Account, Databases , Permission , Role, Storage , Query, Functions} from 'appwrite';
 
 export const client = new Client();
 
 client
     .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`) // Your API Endpoint
     .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`); // Replace with your project ID
-
+export const functions = new Functions(client)
 export const account = new Account(client);
 export const databases = new Databases(client);
+export const storage = new Storage(client);
 export { ID } from 'appwrite';
 export {Permission}
 export {Role}

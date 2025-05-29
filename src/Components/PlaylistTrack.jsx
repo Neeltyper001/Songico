@@ -9,7 +9,7 @@ import { UserProfileDataContext } from '../contexts/context.userProfileData';
 
 
 const PlaylistTrack = ({documentId , sNo,trackName , artistName , coverImage , setAlert , setApiStatus}) => {
-   const userProfileData = useContext(UserProfileDataContext)
+   const {userId} = useContext(UserProfileDataContext)
    const navigate = useNavigate();
   const handleDeletePlaylistTrack = async ()=>{
     try {      
@@ -17,7 +17,7 @@ const PlaylistTrack = ({documentId , sNo,trackName , artistName , coverImage , s
        await removePlayListTrackController(documentId)      
       setApiStatus(prev => ({...prev, isLoading: false , isSuccess: true , isError: false}))
       setAlert(prev => ({...prev, status: true , severity: "success" , message: "Succesfully deleted the track"}))
-      navigate(`/dashboard/playlists/${userProfileData.userId}`)
+      navigate(`/dashboard/playlists/${userId}`)
     } catch (error) {
       setApiStatus(prev => ({...prev, isLoading: false , isSuccess: false , isError: true}))
       setAlert(prev => ({...prev, status: true , severity: "error" , message: `${error.message}`}))

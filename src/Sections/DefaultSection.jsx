@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom"
 
+
 export default function DefaultSection(props){   
+
    const navigate = useNavigate() 
     return(
       <section>
@@ -35,6 +37,7 @@ export default function DefaultSection(props){
       </div>
     </div>
   </div>
+
 </section>
     )
 }

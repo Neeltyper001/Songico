@@ -8,6 +8,8 @@ import { signup } from '../lib/appwrite.signup.js';
 import UseApiStatus from '../hooks/useApiStatus';
 import LoadingUi from '../ui/LoadingUi.jsx';
 import { oAuthSignin } from '../lib/appwrite.OAuth.js';
+import { signUpController } from '../controller/controller.signup.js';
+
 
 const Signup = () => {
     const [formData, setFormData] = React.useState({});
@@ -29,10 +31,14 @@ const Signup = () => {
             if(password !== confirmPassword){
               throw new Error("Password and Confirm Password doesn't match")
             }
-             await signup(email , password) 
+            
+              await signUpController(email , password) 
+                   
+             
             setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
             setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully created an account"}))
         } catch (error) {
+          console.log(error)
             setApiStatus(prev=> ({...prev, isLoading: false, isError: true , isSuccess: false}))
             setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))
           }       
