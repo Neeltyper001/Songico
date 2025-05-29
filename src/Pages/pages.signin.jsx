@@ -21,9 +21,9 @@ const Signin = () => {
             e.preventDefault()                            
             const {email , password} = formData
             await signin(email , password)                  
-            setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
-            setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully Logged In account"}))
             navigate('/dashboard' , {replace: true})
+            // setApiStatus(prev=>({...prev, isSuccess: true , isLoading: false, isError: false}))            
+            // setAlert(prev => ({...prev, status: true, severity: "success", message: "Successfully Logged In account"}))
         } catch (error) {
             setApiStatus(prev=> ({...prev, isLoading: false, isError: true , isSuccess: false}))
             setAlert(prev => ({...prev, status: true, severity: "error", message: `${error.message}`}))
