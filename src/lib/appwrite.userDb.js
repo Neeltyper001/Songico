@@ -22,14 +22,12 @@ export const createUser = async (userId)=>{
 }
 
 export const getUser = async (userId)=>{
-    try {        
-        console.log(userId)
+    try {                
         const result = await databases.listDocuments(
             DATABASE_ID,
             SONGICO_USER_COLLECTION_ID,            
             [Query.equal('userId',[`${userId}`])]
         )
-        console.log(result)
         return result;
     } catch (error) {
         console.log(error.type)
@@ -39,15 +37,12 @@ export const getUser = async (userId)=>{
 
 export const updateProfileImage = async(userId,data)=>{
     try{
-        const result = await databases.updateDocument(
+         await databases.updateDocument(
             DATABASE_ID,
             SONGICO_USER_COLLECTION_ID,
             userId,
             data
-        )
-
-        console.log(result);
-        return result;
+        )        
     }
     catch(error){
         throw new Error(error.message)

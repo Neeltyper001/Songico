@@ -1,8 +1,7 @@
 import { Button } from '@mui/material';
-import React, { useContext } from 'react'
+import  { useContext } from 'react'
 import styled from 'styled-components';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { camelCaseFormat } from '../utils/camelCase';
 import { renderImage } from '../utils/renderProfileImageChange';
 import { UserProfileDataContext } from '../contexts/context.userProfileData';
 import { createFile } from '../utils/createFile';
@@ -38,7 +37,7 @@ const FormFile = ({setFile , setProfileImageObj}) => {
       Change Photo
       <VisuallyHiddenInput
         type="file"
-        onChange={(event) => {console.log(event.target.files[0]); changeValue(event)}}
+        onChange={(event) => {changeValue(event)}}
         multiple
       />
     </Button>

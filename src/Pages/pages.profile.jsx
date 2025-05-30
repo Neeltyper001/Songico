@@ -7,6 +7,7 @@ import FormFile from '../ui/FormFile'
 import { UserProfileDataContext } from '../contexts/context.userProfileData'
 import LoadingUi from '../ui/LoadingUi'
 import { profilePictureController } from '../controller/controller.profile'
+import { West } from '@mui/icons-material'
 
 const Profile = () => {   
     const  [file , setFile] = React.useState(null);  
@@ -15,7 +16,7 @@ const Profile = () => {
     const navigate = useNavigate()
     const {profileImage,userId,profileImageId} = useContext(UserProfileDataContext)
     const [profileImageObj , setProfileImageObj] = React.useState({isChanged: false , profileImageToRender: profileImage})
-
+    
     const updateMyDetails = async(e)=>{        
         try{
           e.preventDefault();
@@ -24,10 +25,12 @@ const Profile = () => {
           navigate(`/dashboard/profile/${userId}`)
           setAlert(prev => ({...prev, status: true , severity: "success" , message: "Succesfully updated profile"}))
           setApiStatus(prev => ({...prev, isLoading: false , isSuccess: true , isError: false}))
+          setProfileImageObj(prev => ({...prev, isChanged: false}))
         }
         catch(e){          
             setApiStatus(prev => ({...prev , isLoading: false, isSuccess: false , isError: true}))
             setAlert(prev=>({...prev , status: true , severity: "error", message: "Couldn't update the profile"}))
+            setProfileImageObj(prev => ({...prev, isChanged: false}))
         }
     }
 
@@ -36,12 +39,13 @@ const Profile = () => {
         {alert.status && <Alert severity={alert.severity} onClose={()=>{setAlert(prev =>  ({...prev, status: false , severity: "", message:"" }))}}>{alert.message}</Alert>}
         {apiStatus.isLoading && <LoadingUi />}
         <Box component="form" onSubmit={updateMyDetails} sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>            
-            <Box sx={{marginY: 3 , display: "flex" , flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                { !profileImageObj.isChanged && <Box component="img" src={profileImageObj.profileImageToRender} alt="Profile" sx={{height: "230px", width: "230px"}}/>}
+            <Button type="button" onClick={()=>{navigate('/dashboard')}} variant="contained" sx={{marginY: 2,alignSelf: 'flex-start'}}><West /></Button>
+            <Box sx={{marginY: 3 , display: "flex" , flexDirection: "column", justifyContent: "center", alignItems: "center" ,}}>
+                { !profileImageObj.isChanged && <Box component="img" src={profileImageObj.profileImageToRender} alt="Profile" sx={{height: "230px", width: "230px", marginBottom: 2 , borderRadius: "50%"}}/>}
                 {  profileImageObj.isChanged && <Box component="img" src={profileImageObj.profileImageToRender} alt="Profile" sx={{height: "230px", width: "230px",marginBottom: 2 , borderRadius: "50%"}}/>}
                 <FormFile setFile={setFile} setProfileImageObj={setProfileImageObj}/>
             </Box>                                    
-            <Button disabled={false} variant="contained" sx={{marginY: 2}} type="submit">Update</Button>
+            <Button disabled={!profileImageObj.isChanged} variant="contained" sx={{marginY: 2}} type="submit">Update</Button>
         </Box>
     </Container>
   )

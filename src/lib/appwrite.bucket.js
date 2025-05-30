@@ -1,6 +1,6 @@
 import { BUCKET_ID } from "../constants/constants.database";
 import { ID, storage } from "./appwrite";
-import { client } from "./appwrite";
+
 
 export const uploadFile = async (file)=>{
         try {                                    
@@ -9,7 +9,6 @@ export const uploadFile = async (file)=>{
                         ID.unique(), // fileId
                         file, // file                   
             );
-            console.log(result)
             return result;
         } catch (error) {
             console.log(error.message)
@@ -21,7 +20,7 @@ export const getFile = async (userId)=>{
         const result = await storage.listFiles(
                 BUCKET_ID, // bucketId,
                 [],
-              `${userId}`              
+               userId              
             );
         
         return result;
@@ -30,15 +29,25 @@ export const getFile = async (userId)=>{
     }
 }
 
-export const getFileURL = async (fileId)=>{
-    try {
-        console.log(fileId)
+export const getFileURL = (fileId)=>{
+    try {        
         const result =  storage.getFileView(
             BUCKET_ID,
             fileId
         )
         
         return result.href
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+export const deleteFile = async (fileId)=>{
+    try {
+          await storage.deleteFile(
+                BUCKET_ID,
+                fileId
+            )
     } catch (error) {
         throw new Error(error.message)
     }
