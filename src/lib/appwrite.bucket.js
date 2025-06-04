@@ -30,7 +30,8 @@ export const getFile = async (userId)=>{
 }
 
 export const getFileURL = (fileId)=>{
-    try {        
+    try {     
+        console.log(fileId)   
         const result =  storage.getFileView(
             BUCKET_ID,
             fileId

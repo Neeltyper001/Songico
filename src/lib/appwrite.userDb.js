@@ -1,17 +1,19 @@
 import { DATABASE_ID, SONGICO_USER_COLLECTION_ID } from "../constants/constants.database"
 import { DEFAULT_SONG_ICON_IMAGE_URL } from "../constants/constants.url";
-import { databases, ID, Query } from "./appwrite"
+import { databases, Query } from "./appwrite"
 
 export const createUser = async (userId)=>{
     try {
         const result = await databases.createDocument(
             DATABASE_ID, // databaseId
             SONGICO_USER_COLLECTION_ID, // collectionId
-            ID.unique(), // documentId
-               {
-                "userId": userId,
-                "profileImage": DEFAULT_SONG_ICON_IMAGE_URL
+            userId, // documentId
+               {           
+                userId,     
+                profileImage: DEFAULT_SONG_ICON_IMAGE_URL,
+                profileImageId: ""
                }, 
+               []
             );
 
         
@@ -37,6 +39,7 @@ export const getUser = async (userId)=>{
 
 export const updateProfileImage = async(userId,data)=>{
     try{
+         console.log(userId)
          await databases.updateDocument(
             DATABASE_ID,
             SONGICO_USER_COLLECTION_ID,
@@ -45,6 +48,8 @@ export const updateProfileImage = async(userId,data)=>{
         )        
     }
     catch(error){
+        console.log(error)
+        console.log(error.message)
         throw new Error(error.message)
     }
     

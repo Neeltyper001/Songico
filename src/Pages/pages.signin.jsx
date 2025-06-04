@@ -17,8 +17,9 @@ const Signin = () => {
 
     const handleSubmit = async (e)=>{
       try {
-            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))            
             e.preventDefault()                            
+            console.log("Handle submit triggered")
+            setApiStatus(prev => ({...prev, isLoading: true , isSuccess: false, isError: false}))            
             const {email , password} = formData
             await signin(email , password)                  
             navigate('/dashboard' , {replace: true})

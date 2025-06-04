@@ -1,28 +1,27 @@
-import { Box, Button } from '@mui/material';
-import { ExecutionMethod, Functions, ID } from "appwrite";
-import { client } from "../lib/appwrite";
+/**
+ * 
+ * This PAGE IS PURELY FOR TESTING PURPOSE. ANYTHING TO TEST OR EXPERIMENT THIS IS THE PAGE FOR IT. IT WON'T BE
+ * AVAILABLE IN LIVE VERSION BUT CAN BE USED IN DEV MODE
+ * 
+ */
+
+import { Alert, Box, Button } from '@mui/material';
+import { ID } from "appwrite";
+import { client, databases } from "../lib/appwrite";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
-import React from 'react'
+import React, { useState } from 'react'
 import { Storage } from "appwrite";
+import UseApiStatus from '../hooks/useApiStatus';
+import LoadingUi from '../ui/LoadingUi';
+import { DATABASE_ID } from '../constants/constants.database';
+import { DEFAULT_SONG_ICON_IMAGE_URL } from '../constants/constants.url';
 
 const Testing = () => {
     const [val, setVal] = React.useState();
     const [fileId , setFileId] = React.useState("");
-      const sendData = async ()=>{
-        const obj = {name: "my-name", value: "foo"};
-        const functions = new Functions(client);
-
-        const result = await functions.createExecution(
-                "6831ebf50005591c4910", // functionId
-                `${JSON.stringify(obj)}`, // body (optional)   
-                false, 
-                ExecutionMethod.POST, // method (optional)
-    
-            );
-            console.log(result)
-            
-        } 
+    const {apiStatus, setApiStatus} = UseApiStatus();
+    const [alert , setAlert] = useState({status: false, severity: "" , message: ""})
 
   const handleData = async (e)=>{
         try {
@@ -80,9 +79,37 @@ const Testing = () => {
             whiteSpace: 'nowrap',
             width: 1,
 });
+
+    const createDocument = async ()=>{
+        try {
+            setApiStatus(prev => ({...prev , isLoading: true , isError: false , isSuccess: false}));
+             
+            // =========== CALL START =============
+                const response = await databases.createDocument(
+                    DATABASE_ID,
+                    "684045160028ff6febf2",
+                    ID.unique(),
+                    {
+                        userId: "cdlqfmsxwznbkeuhatyr",
+                        profileImageId: "",
+                        profileImage: DEFAULT_SONG_ICON_IMAGE_URL
+                    },
+                    []                    
+                )
+                console.log(response)
+             setApiStatus(prev => ({...prev , isLoading: false , isError: false , isSuccess: true}));
+             setAlert(prev => ({...prev , status: true , message: "Succesfully created document" , severity: "success"}))
+            // =========== CALL END ==============
+        } catch (error) {
+            setApiStatus(prev => ({...prev , isLoading: false , isError: true , isSuccess: false}));
+            setAlert(prev => ({...prev , status: true , message: error.message , severity: "error"}))
+            console.log(error.message)
+        }
+    }
   return (
-    <>
-          <Button variant={"contained"} onClick={sendData}>Send Data</Button>
+    <>       
+          {apiStatus.isLoading && <LoadingUi />}   
+          { alert.status && <Alert severity={alert.severity} onClose={()=>{setAlert(prev => ({...prev , status: false , message: "" , severity: ""}))}}>{alert.message}</Alert>}
           <Box onSubmit={handleData} component="form">
                     <Button
                         component="label"
@@ -101,6 +128,8 @@ const Testing = () => {
                 <Button variant='contained' type='submit'>Submit</Button>
                 <Button variant='contained' onClick={()=>{handleUpdate()}} type='button'>Update</Button>
                 <Button variant='contained' onClick={()=>{getFile()}} type='button'>Get</Button>
+                <Button variant='contained' onClick={()=>{createDocument()}} type='button'>Create</Button>
+                
           </Box>
     </>
   )
