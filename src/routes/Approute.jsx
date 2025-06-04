@@ -35,7 +35,7 @@ const AppRoute = () => {
       <Route path="error">
          <Route index element={<SomethingWentWrong />} />
       </Route>
-      <Route path="test" element={<Testing />}/>
+      {/* <Route path="test" element={<Testing />}/> */}
       <Route path="dashboard" element={<DashboardLayout />} loader={fetchUserProfileData} hydrateFallbackElement={<FallbackLoadingUi />} errorElement={<Navigate to="/error" />}>
          <Route index element={<Dashboard />} loader={fetchTracksLoader}/>
          <Route path="playlists/:userId" element={<Playlists />} loader={fetchPlayListTracks}/>
