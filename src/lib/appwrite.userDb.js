@@ -39,7 +39,6 @@ export const getUser = async (userId)=>{
 
 export const updateProfileImage = async(userId,data)=>{
     try{
-         console.log(userId)
          await databases.updateDocument(
             DATABASE_ID,
             SONGICO_USER_COLLECTION_ID,
