@@ -3,8 +3,8 @@ import { Client, Account, Databases , Permission , Role, Storage , Query, Functi
 export const client = new Client();
 
 client
-    .setEndpoint(String(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)) // Your API Endpoint
-    .setProject(String(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`)); // Replace with your project ID
+    .setEndpoint("https://fra.cloud.appwrite.io/v1") // Your API Endpoint
+    .setProject("66f0f918000f44f949a0"); // Replace with your project ID
 export const functions = new Functions(client)
 export const account = new Account(client);
 export const databases = new Databases(client);
