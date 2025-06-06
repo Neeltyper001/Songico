@@ -29,6 +29,7 @@ const AppRoute = () => {
       <Route  path="signin" element={<Signin />} />     
       <Route path="redirect" >
         <Route index element={<SignInRedirectionPage />} />
+        <Route path="oauth2/success" element={<SignInRedirectionPage />} />        
         <Route path="new-password" element={<NewPassword />} />
       </Route>
       <Route path="recovery" element={<RecoveryPassword />} />
