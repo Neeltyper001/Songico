@@ -1,7 +1,6 @@
 import { Client, Account, Databases , Permission , Role, Storage , Query, Functions} from 'appwrite';
 
 export const client = new Client();
-console.log(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)
 client
     .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`) // Your API Endpoint
     .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`); // Replace with your project ID

@@ -8,8 +8,7 @@ const SignInRedirectionPage = () => {
     React.useEffect(()=>{
         const redirectToDashboard = async ()=>{
             try {
-                const response = await getSession();  
-                console.log(response)              
+                const response = await getSession();               
                 navigate('/dashboard' , { state: response, replace: true})
             } catch (error) {
                 console.log(error.message)

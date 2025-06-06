@@ -14,11 +14,3 @@ export const oAuthSignin = ()=>{
         throw new Error(error.message)
     }
 }
-
-// export const oAuthSignup = async()=>{
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-// }

@@ -17,7 +17,7 @@ import { fetchPlayListTracks } from "../loaders/loader.playlist-track-fetcher";
 import { fetchUserProfileData } from "../loaders/loaders.fetchUserProfileData";
 import FallbackLoadingUi from "../Components/FallbackLoadingUi";
 import Profile from "../Pages/pages.profile";
-import Testing from "../Pages/pages.testing";
+// import Testing from "../Pages/pages.testing";
 
 
 

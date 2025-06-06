@@ -10,13 +10,10 @@ export const profilePictureController = async (file, userId, profileImageId)=>{
         }
         // tries to fetch file from the appwrite
         const result = await getFile(userId)   
-        console.log(result)
         // on the basis of result condition is made
         if(result.total === 0){
             const response =   await uploadFile(file)
-            console.log(response)
             const profileImageURL =  getFileURL(response.$id)
-            console.log(profileImageURL)
             await updateProfileImage(userId,{
                     profileImage: profileImageURL,
                     profileImageId: response.$id
